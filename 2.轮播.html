@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      *{
+        margin:0;
+        padding:0;
+      }
+      .box{
+        width:500px;
+        height:300px;
+          margin:20px auto;
+        position: relative;
+      }
+      .bigbox{
+        width:500px;
+        height:300px;
+        border: 1px solid black;
+        margin:20px auto;
+
+      }
+      .bigbox>div{
+        width:500px;
+        height:300px;
+        left:0;
+        top:0;
+        position: absolute;
+      }
+
+
+      .bigbox img{
+        width:500px;
+        height: 300px;
+        /*display: none;*/
+      }
+      .bigbox img:nth-of-type(5){
+        display: none;
+        z-index: 0;
+      }
+
+      /*#nn{
+        display: none;
+        z-index: 0;
+      }*/
+      .left,.right {
+        width:25px;
+        height:40px;
+        color:gray;
+        font-size: 50px;
+        font-weight: 900;
+        opacity: 0.7;
+        position:absolute;
+        top: 120px;
+        cursor: pointer;
+      }
+      .left{
+        left:0;
+      }
+      .right{
+        right:15px;
+      }
+      ul{
+        width:200px;
+        height:20px;
+        position: absolute;
+        left: 175px;
+        top:270px;
+      }
+      li{
+        list-style: none;
+        width:20px;
+        height:20px;
+        border-radius: 50%;
+        background: gray;
+        float: left;
+        text-align: center;
+        margin-left: 8px;
+        cursor: pointer;
+      }
+      .active{
+        background:red;
+      }
+
+    </style>
+    <script src="jquery-3.2.1.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      var len=$('.bigbox div').length;
+      console.log(len);
+      $('ul li').each(function(index) {
+        $(this).hover(function() {
+          clearInterval(time);
+          $(" li").eq(index).addClass("active").siblings().removeClass("active");
+          $(".bigbox div").eq(index).slideDown(300).siblings().slideUp(300);
+        }, function() {
+          time=setInterval(rightmove, 1500)
+        });
+      });
+
+      var i=-1;
+      var time=setInterval(rightmove,1000);
+
+
+      function rightmove(){
+        i++;
+        if (i == len) {
+            i = 0;
+        }
+        $(" li").eq(i).addClass("active").siblings().removeClass("active");
+        $(".bigbox div").eq(i).slideDown(300).siblings().slideUp(300);
+      }
+
+
+
+      function leftmove(){
+        i--;
+        console.log(i);
+        if (i == -1) {
+            i = len-1;
+        }
+        $(" li").eq(i).addClass("active").siblings().removeClass("active");
+        $(".bigbox div").eq(i).slideDown(300).siblings().slideUp(300);
+      }
+      $(".bigbox div").hover(function() {
+           clearInterval(time);
+       }, function() {
+           time = setInterval(rightmove, 1500)
+       })
+       $(".left").hover(function() {
+            clearInterval(time);
+        }, function() {
+            time = setInterval(rightmove, 1500)
+        })
+        $(".right").hover(function() {
+             clearInterval(time);
+         }, function() {
+             time = setInterval(rightmove, 1500)
+         })
+
+      $('.left').click(function(event) {
+        leftmove();
+      });
+      $('.right').click(function(event) {
+        rightmove();
+      });
+    
+    });
+
+    </script>
+  </head>
+  <body>
+    <div class="box">
+      <div class="bigbox">
+        <div style="display:block"><img src="1.jpg" alt="" ></div>
+        <div style="display:none"><img src="2.jpg" alt="" ></div>
+        <div style="display:none"><img src="3.jpg" alt="" ></div>
+        <div style="display:none"><img src="4.jpg" alt="" ></div>
+        <div style="display:none"><img src="5.jpg" alt="" ></div>
+      </div>
+      <div class="left">
+        <
+      </div>
+      <div class="right">
+        >
+      </div>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+
+      </ul>
+    </div>
+
+  </body>
+</html>
